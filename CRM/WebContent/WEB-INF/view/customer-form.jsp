@@ -27,8 +27,11 @@
 	<div id="container">
 		<h3>Save Customer</h3>
 		
-		<!-- modelAttribute="customer" refers to the attribute name in the showFormForAdd() in CustomerController -->
+		<!-- modelAttribute="customer" refers to the attribute name in the showFormForAdd/Update() in CustomerController -->
 		<form:form action="saveCustomer" modelAttribute="customer" method="POST"> 
+			
+			<!-- Associate this data with customer id. Tracks the customer -->
+			<form:hidden path="id" />
 			
 			<table>
 				<tbody>

@@ -25,7 +25,7 @@
 	<div id="container">
 		<div id="content">
 		
-		<!-- Add a button to insert new customer -->
+		<!-- A button to insert new customer -->
 		<input type="button" 
 			   value="Add Customer" 
 			   onclick="window.location.href='showFormForAdd'; return false;" 
@@ -37,15 +37,23 @@
 					<th>First Name</th>
 					<th>Last Name</th>
 					<th>Email</th>
+					<th>Action</th>
 				</tr>
 
-				<!-- Loop over and print our customers -->
-				<!-- ${customers} refers to -> theModel.addAttribute("customer", theCustomers) -->
+				<!-- Loop over and print our customers information to the table -->
+				<!-- ${customers} refers to -> theModel.addAttribute("customer", theCustomers) in the CustomerController -->
 				<c:forEach var="tempCustomer" items="${customers}">
+				
+					<!-- A link that is embedded with the customer's ID -->
+					<c:url var="updateLink" value="/customer/showFormForUpdate"> 
+						<c:param name="customerId" value="${tempCustomer.id}" />
+					</c:url>
+				
 					<tr>
 						<td>${tempCustomer.firstName}</td>
 						<td>${tempCustomer.lastName}</td>
 						<td>${tempCustomer.email}</td>
+						<td><a href="${updateLink}">Update</a></td>
 					</tr>
 				</c:forEach>
 

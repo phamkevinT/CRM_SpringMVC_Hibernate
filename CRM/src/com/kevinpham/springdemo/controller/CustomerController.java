@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kevinpham.springdemo.dao.CustomerDAO;
 import com.kevinpham.springdemo.entity.Customer;
@@ -63,5 +64,22 @@ public class CustomerController {
 		
 		// After saving customer to the model, redirect to the list of customers
 		return "redirect:/customer/list";
+	}
+	
+	
+	// Populate the form with existing customer information
+	// 'customerId' refers to the param name in HTML form
+	@GetMapping("/showFormForUpdate")
+	public String showFormForUpdate(@RequestParam("customerId") int theId, Model theModel) {
+		
+		// Get customer from our service with ID
+		Customer theCustomer = customerService.getCustomer(theId);
+		
+		// Set customer as model attribute to pre-populate the form
+		// 'customer' refers to the form modelAttribute in 'customer-form.jsp'
+		theModel.addAttribute("customer", theCustomer);
+		
+		// Send over to form
+		return "customer-form";
 	}
 }
