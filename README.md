@@ -3,5 +3,5 @@
 Customer relationship management database web application using Spring MVC and Hibernate
 
 ## The Big Overview Picture
-![Image of Project Overview](https://i.imgur.com/wdftfks.png)
+![Image of Project Overview](https://i.imgur.com/UE3Eroa.png)
 
