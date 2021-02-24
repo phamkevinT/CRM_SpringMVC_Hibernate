@@ -1,2 +1,4 @@
 # CRM_SpringMVC_Hibernate
-Database web application using Spring MVC and Hibernate
+
+Customer relationship management database web application using Spring MVC and Hibernate
+
