@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kevinpham.springdemo.dao.CustomerDAO;
 import com.kevinpham.springdemo.entity.Customer;
 import com.kevinpham.springdemo.service.CustomerService;
+import com.kevinpham.springdemo.util.SortUtils;
 
 @Controller
 @RequestMapping("/customer")
@@ -27,14 +28,26 @@ public class CustomerController {
 	// Displays the 'list-customer' page
 	// Used in the 'index.jsp' files that redirects to this page on start up
 	@GetMapping("/list")
-	public String listCustomers(Model theModel) {
+	public String listCustomers(Model theModel, @RequestParam(required=false) String sort) {
 
-		// Get customers from the DAO
-		List<Customer> theCustomers = customerService.getCustomers();
-
-		// Add the customers to the spring mvc model
+		// Get customers from the service
+		List<Customer> theCustomers = null;
+		
+		// Check if 'sort' is null
+		if (sort != null) {
+			
+			int theSortField = Integer.parseInt(sort);
+			theCustomers = customerService.getCustomers(theSortField);			
+		}
+		else {
+			
+			// Default to sorting by last name if no sort key is provided
+			theCustomers = customerService.getCustomers(SortUtils.LAST_NAME);
+		}
+		
+		// Add the customers to the model
 		theModel.addAttribute("customers", theCustomers);
-
+		
 		return "list-customer";
 	}
 	
