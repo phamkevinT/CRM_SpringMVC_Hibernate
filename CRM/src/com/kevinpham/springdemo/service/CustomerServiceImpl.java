@@ -12,7 +12,8 @@ import com.kevinpham.springdemo.entity.Customer;
 @Service 
 public class CustomerServiceImpl implements CustomerService {
 
-	// Inject the service DAO
+	// Inject the CustomerDAO
+	// Spring will scan for a component that implements the CustomerDAO interface
 	@Autowired
 	private CustomerDAO customerDAO;
 	

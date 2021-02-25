@@ -20,6 +20,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	
+	// Get the customer's information from the database
 	@Override
 	public List<Customer> getCustomers(int theSortField) {
 
@@ -61,17 +63,22 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return customers;
 	}
 
+	
+	// Save a new customer to the database
 	@Override
 	public void saveCustomer(Customer theCustomer) {
 		
 		// Get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
-		// Save (if not primary key/id) or Update (if primary key/if exists) the customer
+		// Save (if not primary key/id) or Update (if primary key/id exists) the customer
+		// Primary Key/ID is passed through by the '<form:hidden path="id" />' in 'customer-form.jsp'
 		currentSession.saveOrUpdate(theCustomer);
 		
 	}
 
+	
+	// Get a single customer from the database based on primary key/id
 	@Override
 	public Customer getCustomer(int theId) {
 		
@@ -84,7 +91,9 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return theCustomer;
 		
 	}
-
+	
+	
+	// Delete a customer from the database based on primary key/id
 	@Override
 	public void deleteCustomer(int theId) {
 
@@ -95,11 +104,14 @@ public class CustomerDAOImpl implements CustomerDAO {
 		Query theQuery = 
 				currentSession.createQuery("delete from Customer where id=:customerId");
 		
+		// Set the parameter in the query above to be the ID
 		theQuery.setParameter("customerId", theId);
 		
 		theQuery.executeUpdate();		
 	}
 
+	
+	// Get a list of customers based on name search
 	@Override
     public List<Customer> searchCustomers(String theSearchName) {
 		
@@ -113,12 +125,14 @@ public class CustomerDAOImpl implements CustomerDAO {
         	
             // Search for firstName or lastName 
             theQuery = currentSession.createQuery("from Customer where lower(firstName) like :theName or lower(lastName) like :theName", Customer.class);
+            
+    		// Set the parameter in the query above to be the ID
             theQuery.setParameter("theName", "%" + theSearchName.toLowerCase() + "%");
         }
         else {
         	
             // theSearchName is empty -> return all customers from database
-            theQuery =currentSession.createQuery("from Customer", Customer.class);            
+            theQuery = currentSession.createQuery("from Customer", Customer.class);            
         }
         
         // Execute query and get result list

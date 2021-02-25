@@ -21,7 +21,7 @@ import com.kevinpham.springdemo.util.SortUtils;
 public class CustomerController {
 
 	// Inject the customer service
-	// Spring will scan for a component that implements the CustomerDAO interface
+	// Spring will scan for a component that implements the 'CustomerService' interface
 	@Autowired
 	private CustomerService customerService;
 
@@ -30,13 +30,14 @@ public class CustomerController {
 	@GetMapping("/list")
 	public String listCustomers(Model theModel, @RequestParam(required=false) String sort) {
 
-		// Get customers from the service
+		// Get customers from the 'CustomerService'
 		List<Customer> theCustomers = null;
 		
 		// Check if 'sort' is null
 		if (sort != null) {
 			
 			int theSortField = Integer.parseInt(sort);
+			// Pass the sort key to CustomerService then to CustomerDAO
 			theCustomers = customerService.getCustomers(theSortField);			
 		}
 		else {
@@ -57,7 +58,7 @@ public class CustomerController {
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
 		
-		// Model Attribute to bind form data
+		// Model Attribute to bind the form data
 		Customer theCustomer = new Customer();
 		
 		// Use this attribute name 'customer' to build html/jsp form
@@ -72,7 +73,7 @@ public class CustomerController {
 	@PostMapping("/saveCustomer")
 	public String saveCustomer(@ModelAttribute("customer") Customer theCustomer) {
 		
-		// Save the customer using our service
+		// Save the customer by passing it to 'CustomerService' then to 'CustomerDAO'
 		customerService.saveCustomer(theCustomer);
 		
 		// After saving customer to the model, redirect to the list of customers

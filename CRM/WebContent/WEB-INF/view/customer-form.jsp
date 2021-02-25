@@ -18,12 +18,14 @@
 
 <body>
 	
+	<!-- Page Header -->
 	<div id="wrapper">
 		<div id="header">
 			<h2>CRM - Customer Relationship Manager </h2>
 		</div>
 	</div>
 	
+	<!--  Save Customer -->
 	<div id="container">
 		<h3>Save Customer</h3>
 		
@@ -57,7 +59,7 @@
 			</table>
 		</form:form>
 		
-		
+		<!-- Return back to customer list -->
 		<div style="clear; both;"></div>
 		<p>
 			<a href="${pageContext.request.contextPath}/customer/list">Back to Customer List</a>
